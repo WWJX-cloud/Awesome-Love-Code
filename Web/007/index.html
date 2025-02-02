@@ -193,65 +193,72 @@
 	</div>
 
 	<script>
-		var personArray = new Array;
-		var CurPersonNum = 0;
-		// animate
-		var _in = ['bounceIn', 'bounceInDown', 'bounceInLeft', 'bounceInRight', 'bounceInUp', 'fadeIn', 'fadeInDown', 'fadeInDownBig', 'fadeInLeft', 'fadeInLeftBig', 'fadeInRight', 'fadeInRightBig', 'fadeInUp', 'fadeInUpBig', 'rotateIn', 'rotateInDownLeft', 'rotateInDownRight', 'rotateInUpLeft', 'rotateInUpRight', 'slideInDown', 'slideInLeft', 'slideInRight'];
-		var _out = ['bounceOut', 'bounceOutDown', 'bounceOutLeft', 'bounceOutRight', 'bounceOutUp', 'fadeOut', 'fadeOutDown', 'fadeOutDownBig', 'fadeOutLeft', 'fadeOutLeftBig', 'fadeOutRight', 'fadeOutRightBig', 'fadeOutUp', 'fadeOutUpBig', 'rotateOut', 'rotateOutDownLeft', 'rotateOutDownRight', 'rotateOutUpLeft', 'rotateOutUpRight', 'slideOutDown', 'slideOutLeft', 'slideOutRight'];
+		var personArray = [];
 
-		// 模拟推送数据
-		var s = setInterval(function () {
-			// get animate
-			var rand_in = parseInt(Math.random() * _in.length, 10);
-			var rand_out = parseInt(Math.random() * _out.length, 10);
-			if (CurPersonNum >= personArray.length) {
-				CurPersonNum = 0;
-			}
-			$('.show_info').show();
-			$('.show_info').addClass(_in[rand_in]);
-			setTimeout(function () {
-				$('.show_info').removeClass(_in[rand_in]);
-				// 更改展示的图片
-				var img = document.getElementsByClassName('element')[CurPersonNum].getElementsByTagName('img')[0];
-				img.setAttribute('src', 'img/mmexport1738466517329.jpg');
-				++CurPersonNum;
-				setTimeout(function () {
-					$('.show_info').addClass(_out[rand_out]);
-					setTimeout(function () {
-						$('.show_info').removeClass(_out[rand_out]);
-						$('.show_info').hide();
-					}, 1000);
-				}, 1500);
-			}, 1000);
-		}, 4500);
+// 添加虚拟数据
+for (var i = 0; i < 199; i++) {
+    personArray.push({
+        image: "img/mmexport1738466521152.jpg"
+    });
+}
 
-		// 生成虚拟数据
-		for (var i = 0; i < 199; i++) {
-			personArray.push({
-				image: "img/mmexport1738466521152.jpg"
-			});
-		}
+// 添加新的图片到 personArray
+personArray.push({
+    image: "img/mmexport1738466542299.jpg"
+});
+personArray.push({
+    image: "img/mmexport1738466553448.jpg"
+});
+personArray.push({
+    image: "img/mmexport1738466517329.jpg"
+});
+personArray.push({
+    image: "img/mmexport1738466521152.jpg"
+});
+personArray.push({
+    image: "img/mmexport1738466573852.jpg"
+});
+personArray.push({
+    image: "img/mmexport1738466553448.jpg"
+});
 
-		// 添加新的图片到 personArray
-		personArray.push({
-			image: "img/mmexport1738466542299.jpg"
-		});
-		personArray.push({
-			image: "img/mmexport1738466553448.jpg"
-		});
-		personArray.push({
-    			image: "img/mmexport1738466517329.jpg"
-		});
-		personArray.push({
-    			image: "img/mmexport1738466521152.jpg"
-		});
-		personArray.push({
-    			image: "img/mmexport1738466573852.jpg"
-		});
-		personArray.push({
-    			image: "img/mmexport1738466553448.jpg"
-		});
+var CurPersonNum = 0;
 
+// 动画效果数组
+var _in = ['bounceIn', 'bounceInDown', 'bounceInLeft', 'bounceInRight', 'bounceInUp', 'fadeIn', 'fadeInDown', 'fadeInDownBig', 'fadeInLeft', 'fadeInLeftBig', 'fadeInRight', 'fadeInRightBig', 'fadeInUp', 'fadeInUpBig', 'rotateIn', 'rotateInDownLeft', 'rotateInDownRight', 'rotateInUpLeft', 'rotateInUpRight', 'slideInDown', 'slideInLeft', 'slideInRight'];
+var _out = ['bounceOut', 'bounceOutDown', 'bounceOutLeft', 'bounceOutRight', 'bounceOutUp', 'fadeOut', 'fadeOutDown', 'fadeOutDownBig', 'fadeOutLeft', 'fadeOutLeftBig', 'fadeOutRight', 'fadeOutRightBig', 'fadeOutUp', 'fadeOutUpBig', 'rotateOut', 'rotateOutDownLeft', 'rotateOutDownRight', 'rotateOutUpLeft', 'rotateOutUpRight', 'slideOutDown', 'slideOutLeft', 'slideOutRight'];
+
+// 模拟推送数据
+var s = setInterval(function () {
+    // 获取随机动画效果
+    var rand_in = parseInt(Math.random() * _in.length, 10);
+    var rand_out = parseInt(Math.random() * _out.length, 10);
+
+    // 显示信息框
+    $('.show_info').show();
+    $('.show_info').addClass(_in[rand_in]);
+
+    setTimeout(function () {
+        $('.show_info').removeClass(_in[rand_in]);
+
+        // 更改展示的图片
+        var img = document.getElementsByClassName('element')[CurPersonNum].getElementsByTagName('img')[0];
+
+        // 使用 personArray 中的图片
+        img.setAttribute('src', personArray[CurPersonNum].image);
+
+        // 更新 CurPersonNum，确保在有效范围内
+        CurPersonNum = (CurPersonNum + 1) % personArray.length; // 循环到数组开头
+
+        setTimeout(function () {
+            $('.show_info').addClass(_out[rand_out]);
+            setTimeout(function () {
+                $('.show_info').removeClass(_out[rand_out]);
+                $('.show_info').hide();
+            }, 1000);
+        }, 1500);
+    }, 1000);
+}, 4500);
 		
 		
 
